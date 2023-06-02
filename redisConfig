@@ -1,0 +1,29 @@
+    @Bean
+    public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory factory){
+
+        RedisTemplate<String,Object> template = new RedisTemplate<>();
+
+        template.setConnectionFactory(factory);
+
+        GenericJackson2JsonRedisSerializer jackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
+
+        template.setKeySerializer(jackson2JsonRedisSerializer);
+        template.setHashKeySerializer(jackson2JsonRedisSerializer);
+ 
+        template.setValueSerializer(jackson2JsonRedisSerializer);
+        template.setHashValueSerializer(jackson2JsonRedisSerializer);
+
+        return template;
+        
+        spring:
+  redis:
+    host: 192.168.128.129
+    port: 6379
+    password: 5201314
+    database: 0
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: 1000ms
+        min-idle: 0
